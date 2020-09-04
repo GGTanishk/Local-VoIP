@@ -1,0 +1,99 @@
+hostname Switch
+boot-start-marker
+boot-end-marker
+no aaa new-model
+system mtu routing 1500
+vtp domain CCNP
+vtp mode transparent
+authentication mac-move permit
+ip subnet-zero
+spanning-tree mode pvst
+spanning-tree etherchannel guard misconfig
+spanning-tree extend system-id
+vlan internal allocation policy ascending
+vlan 2
+ name InSecure
+vlan 3-5,7
+vlan 10
+ name voice
+vlan 12
+vlan 20
+ name data
+vlan 99
+vlan 100
+ name Microsoft
+vlan 192
+ name Guest
+interface FastEthernet0/1
+ switchport access vlan 10
+ switchport mode access
+ switchport voice vlan 20
+ spanning-tree portfast
+interface FastEthernet0/2
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 10,20
+ switchport mode trunk
+interface FastEthernet0/3
+ switchport access vlan 10
+ switchport mode access
+ switchport voice vlan 20
+ spanning-tree portfast
+interface FastEthernet0/4
+interface FastEthernet0/5
+interface FastEthernet0/6
+interface FastEthernet0/7
+interface FastEthernet0/8
+interface FastEthernet0/9
+interface FastEthernet0/10
+interface FastEthernet0/11
+interface FastEthernet0/12
+interface FastEthernet0/13
+interface FastEthernet0/14
+interface FastEthernet0/15
+interface FastEthernet0/16
+interface FastEthernet0/17
+interface FastEthernet0/18
+interface FastEthernet0/19
+interface FastEthernet0/20
+interface FastEthernet0/21
+interface FastEthernet0/22
+interface FastEthernet0/23
+interface FastEthernet0/24
+interface FastEthernet0/25
+interface FastEthernet0/26
+interface FastEthernet0/27
+interface FastEthernet0/28
+interface FastEthernet0/29
+interface FastEthernet0/30
+interface FastEthernet0/31
+interface FastEthernet0/32
+interface FastEthernet0/33
+interface FastEthernet0/34
+interface FastEthernet0/35
+interface FastEthernet0/36
+interface FastEthernet0/37
+interface FastEthernet0/38
+interface FastEthernet0/39
+interface FastEthernet0/40
+interface FastEthernet0/41
+interface FastEthernet0/42
+interface FastEthernet0/43
+interface FastEthernet0/44
+interface FastEthernet0/45
+interface FastEthernet0/46
+interface FastEthernet0/47
+interface FastEthernet0/48
+interface GigabitEthernet0/1
+interface GigabitEthernet0/2
+interface GigabitEthernet0/3
+interface GigabitEthernet0/4
+interface Vlan1
+ no ip address
+ shutdown
+ip classless
+ip http server
+ip http secure-server
+ip sla enable reaction-alerts
+line con 0
+line vty 5 15
+end

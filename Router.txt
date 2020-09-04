@@ -1,0 +1,81 @@
+hostname Router
+boot-start-marker
+boot-end-marker
+no aaa new-model
+memory-size iomem 25
+ip cef
+ip dhcp excluded-address 192.168.1.10
+ip dhcp excluded-address 192.168.2.10
+ip dhcp pool voice
+ network 192.168.1.0 255.255.255.0
+ default-router 192.168.1.1
+ dns-server 209.165.200.254
+ option 150 ip 192.168.1.10
+ip dhcp pool data
+ network 192.168.2.0 255.255.255.0
+ default-router 192.168.2.1
+ dns-server 209.165.200.254
+ option 150 ip 192.168.1.10
+ntp master
+no ipv6 cef
+multilink bundle-name authenticated
+voice-card 0
+license udi pid CISCO2901/K9 sn FTX180180M8
+license accept end user agreement
+license boot module c2900 technology-package securityk9
+license boot module c2900 technology-package uck9
+vtp domain CCNP
+vtp mode transparent
+redundancy
+interface Embedded-Service-Engine0/0
+ no ip address
+ shutdown
+interface GigabitEthernet0/0
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+interface F0/1
+ no ip address
+ duplex auto
+ speed auto
+interface F0/1.10
+ encapsulation dot1Q 10
+ ip address 192.168.1.1 255.255.255.0
+interface F0/1.20
+ encapsulation dot1Q 20
+ ip address 192.168.2.1 255.255.255.0
+interface Serial0/0/0
+ no ip address
+ shutdown
+ clock rate 2000000
+interface Serial0/0/1
+ no ip address
+ shutdown
+ clock rate 2000000
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+control-plane
+mgcp profile default
+gatekeeper
+ shutdown
+telephony-service
+ max-ephones 5
+ max-dn 5
+ ip source-address 192.168.1.10 port 2000
+ max-conferences 8 gain -6
+ transfer-system full-consult
+line con 0
+line aux 0
+line 2
+ no activation-character
+ no exec
+ transport preferred none
+ transport output lat pad telnet rlogin lapb-ta mop udptn v120 ssh
+ stopbits 1
+line vty 0 4
+ login
+ transport input all
+scheduler allocate 20000 1000
+end
